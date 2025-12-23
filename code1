@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Lokalisierer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 22px;
+        }
+        p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>IP Lokalisierer</h1>
+    <p><strong>IP:</strong> <span id="ip">Lädt...</span></p>
+    <p><strong>Land:</strong> <span id="country"></span></p>
+    <p><strong>Stadt:</strong> <span id="city"></span></p>
+    <p><strong>Provider:</strong> <span id="isp"></span></p>
+</div>
+
+<script>
+fetch("https://ipapi.co/json/")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("ip").innerText = data.ip;
+        document.getElementById("country").innerText = data.country_name;
+        document.getElementById("city").innerText = data.city;
+        document.getElementById("isp").innerText = data.org;
+    })
+    .catch(error => {
+        document.getElementById("ip").innerText = "Fehler beim Laden";
+        console.error(error);
+    });
+</script>
+
+</body>
+</html>
